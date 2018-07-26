@@ -371,10 +371,15 @@ void CLinkedList::reverseList_Recursive()
 		//pLastNode->next = nullptr;
 
 		// Way 2: Use recursion in reverse function with only head pointer. 
-		reverseUtil_Recursive(pNode, pNode->next, pFirstNode);
+		//reverseUtil_Recursive(pNode, pNode->next, pFirstNode);
 
-		pNode->next = nullptr;
-		pLastNode = pNode; 
+		//pNode->next = nullptr; // (*) if you do not have this line, inifity loop will happen in 1 and 2: 1 -> <- 2 <- 3 <- 4 <-5 <- 6
+		//pLastNode = pNode; 
+
+		// Way 3: Use recursion, but in order to prevent the loop in Way 2, because when 
+		// you do not have the above line (*).
+		reverseUtil_RecursiveNotInfinityLoop(pNode, nullptr, pFirstNode);
+		pLastNode = pNode;
 	}
 }
 
@@ -412,6 +417,31 @@ void CLinkedList::reverseUtil_Recursive(node* pNode, node* pRemainNode, node*& p
 	pRemainNode->next = pNode;
 }
 
+
+// This way has some part that is as same as with iteration of reversation function.
+void CLinkedList::reverseUtil_RecursiveNotInfinityLoop(node* pNode, node* pPrevNode, node*& pHeadNode)
+{
+	if (!pNode)
+	{
+		return;
+	}	
+
+	if (!pNode->next)
+	{
+		pHeadNode = pNode;
+	}
+
+	// save the next node for the later recursion.
+	node* pNextNode = pNode->next;
+
+	// link to the previous node. 
+	pNode->next = pPrevNode;
+	
+	pPrevNode = pNode;
+	pNode = pNextNode;
+
+	reverseUtil_RecursiveNotInfinityLoop(pNode, pPrevNode, pHeadNode);
+}
 #pragma endregion
 
 

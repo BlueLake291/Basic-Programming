@@ -71,6 +71,7 @@ public:
 	void reverseList_Recursive();//node *&pNode);
 	void reverse_Recursive(node* pFirstNode, node* pRestNode);
 	void reverseUtil_Recursive(node* pNode, node* pRemainNode, node*& pHeadNode);
+	void reverseUtil_RecursiveNotInfinityLoop(node* pNode, node* pPrevNode, node*& pHeadNode);
 
 	// get Nth node in linked list. 
 	node* getNthNode(int n);
