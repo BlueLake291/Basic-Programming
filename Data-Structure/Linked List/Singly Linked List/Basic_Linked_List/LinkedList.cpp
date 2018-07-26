@@ -354,23 +354,32 @@ void CLinkedList::reverseList_Iterative()
 }
 
 
-void CLinkedList::reverseList_Recursive(node *&pNode)
+void CLinkedList::reverseList_Recursive()
 {
+	node* pNode = pFirstNode;
+
 	if (pNode && pNode->next)
 	{
-		reverse_Recursive(pNode, pNode->next);
+		// Way 1: Use recursion and swap two pointer: head and last. 
+		//reverse_Recursive(pNode, pNode->next);
 
-		// swap two pointer pFirstNode and pLastNode. 
-		node *pTempNode = pFirstNode;
-		pFirstNode = pLastNode;
-		pLastNode = pTempNode;
+		//// swap two pointer pFirstNode and pLastNode. 
+		//node *pTempNode = pFirstNode;
+		//pFirstNode = pLastNode;
+		//pLastNode = pTempNode;
 
-		pLastNode->next = nullptr;
+		//pLastNode->next = nullptr;
+
+		// Way 2: Use recursion in reverse function with only head pointer. 
+		reverseUtil_Recursive(pNode, pNode->next, pFirstNode);
+
+		pNode->next = nullptr;
+		pLastNode = pNode; 
 	}
 }
 
 
-void CLinkedList::reverse_Recursive(node *&pFirstNode, node *&pRestNode)
+void CLinkedList::reverse_Recursive(node* pFirstNode, node* pRestNode)
 {
 	// base case.
 	if (!pRestNode)
@@ -383,6 +392,24 @@ void CLinkedList::reverse_Recursive(node *&pFirstNode, node *&pRestNode)
 
 	// process. 
 	pRestNode->next = pFirstNode;
+}
+
+
+void CLinkedList::reverseUtil_Recursive(node* pNode, node* pRemainNode, node*& pHeadNode)
+{
+	if (!pRemainNode)
+	{
+		return;
+	}
+
+	reverseUtil_Recursive(pRemainNode, pRemainNode->next, pHeadNode);
+
+	if (!pRemainNode->next)
+	{
+		pHeadNode = pRemainNode;
+	}
+
+	pRemainNode->next = pNode;
 }
 
 #pragma endregion

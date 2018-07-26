@@ -68,8 +68,9 @@ public:
 
 	// Reverse the Linked List.
 	void reverseList_Iterative();
-	void reverseList_Recursive(node *&pNode);
-	void reverse_Recursive(node *&pFirstNode, node *&pRestNode);
+	void reverseList_Recursive();//node *&pNode);
+	void reverse_Recursive(node* pFirstNode, node* pRestNode);
+	void reverseUtil_Recursive(node* pNode, node* pRemainNode, node*& pHeadNode);
 
 	// get Nth node in linked list. 
 	node* getNthNode(int n);

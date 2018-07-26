@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "LinkedList.h"
 
+
+
+
+
 int main()
 {
-	int a[] = { 1, 3, 5, 7, 8, 7, 5, 3, 1 };
+	int a[] = { 1, 2, 3, 4, 5, 6 };
 	int size = sizeof(a) / sizeof(int);
 	CLinkedList lkist;
 	node* loopedNode = nullptr;
@@ -15,18 +19,7 @@ int main()
 		lkist.insertTail(tmp);
 	}
 
-
-	bool isPalindrome = lkist.isPalindrome();
-	if (isPalindrome)
-	{
-		cout << "The array is palindrome.\n";
-	}
-	else
-	{
-		cout << "The array is not palindrome.\n";
-	}
-	
-	cout << "The list is: \n";
+	lkist.reverseList_Recursive();
 	lkist.printList();
 
 	system("pause");
