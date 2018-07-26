@@ -49,6 +49,8 @@ public:
 	// Reverse list. 
 	void iterative_ReverseList();
 	void recursive_ReverseList();
+	void childRecursiveReverse(CNode* firstNode, CNode* remainNode, CNode*& pHeadNode);
+	void childRecursiveReverse_NotInfinityLoop(CNode* pCurrentNode, CNode* pPrevNode, CNode*& pHeadNode);
 
 private:
 	CNode*		m_pHeadNode; 

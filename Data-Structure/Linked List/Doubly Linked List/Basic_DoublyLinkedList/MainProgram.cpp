@@ -18,14 +18,21 @@ int main()
 
 	lkist.printList();
 
-	lkist.insertBefore(4, lkist.makeNode(10));
+	/*lkist.insertBefore(4, lkist.makeNode(10));
 
 	lkist.printList();
 
 	lkist.deleteMiddle(5);
+
+	lkist.printList();*/
+
+	cout << "Reverse the doubly linked list: \n";
+	lkist.recursive_ReverseList();
 
 	lkist.printList();
 
 	system("pause");
 	return 0;
 }
+
+

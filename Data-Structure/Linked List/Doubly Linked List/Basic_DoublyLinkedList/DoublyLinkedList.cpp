@@ -192,22 +192,86 @@ void CDoublyLinkedList::iterative_ReverseList()
 {
 	CNode* pPrevNode = nullptr; 
 	CNode* pCurrentNode = m_pHeadNode;
-	//CNode* pNextNode = nullptr;
+	CNode* pNextNode = nullptr;
 
 	for (; pCurrentNode;)
 	{
-		//pNextNode = pCurrentNode->m_pNext;
+		pNextNode = pCurrentNode->m_pNext;
 
 		// link to the other nodes. 
-		pCurrentNode->
+		pCurrentNode->m_pNext = pPrevNode;
+		pCurrentNode->m_pPrevious = pNextNode; 
 
-
+		pPrevNode = pCurrentNode;
+		pCurrentNode = pNextNode;
 	}
+
+	m_pHeadNode = pPrevNode;
 }
 
 
 void CDoublyLinkedList::recursive_ReverseList()
 {
+	CNode* pTempNode = m_pHeadNode;
+	if (!pTempNode || !(pTempNode->m_pNext))
+	{
+		cout << "The doubly linked list in empty or The list have one element.\n";
+		return;
+	}
 
+	// Way 1: This way have to fix the next, previous pointer of the head element. 
+	// Because it only run from the second element. 
+	//childRecursiveReverse(pTempNode, pTempNode->m_pNext, m_pHeadNode);
+	//
+	//pTempNode->m_pPrevious = pTempNode->m_pNext; //(*)
+	//pTempNode->m_pNext = nullptr;					// (**)
+	//m_pLastNode = pTempNode;
+
+	// Way 2: Do not worry about this problem: infinity loop when you do not have the two line: (*) and (**).
+	childRecursiveReverse_NotInfinityLoop(pTempNode, nullptr, m_pHeadNode);
+	m_pLastNode = pTempNode;
+}
+
+
+void CDoublyLinkedList::childRecursiveReverse(CNode* firstNode, CNode* remainNode, CNode*& pHeadNode)
+{
+	if (!remainNode)
+	{		
+		return;
+	}
+
+	childRecursiveReverse(firstNode->m_pNext, remainNode->m_pNext, pHeadNode);
+
+	if (!remainNode->m_pNext)
+	{
+		pHeadNode = remainNode;
+	}
+
+	remainNode->m_pPrevious = remainNode->m_pNext;
+	remainNode->m_pNext = firstNode;	
+}
+
+
+void CDoublyLinkedList::childRecursiveReverse_NotInfinityLoop(CNode* pCurrentNode, CNode* pPrevNode, CNode*& pHeadNode)
+{
+	if (!pCurrentNode)
+	{
+		return;
+	}
+
+	if (!pCurrentNode->m_pNext)
+	{
+		pHeadNode = pCurrentNode;
+	}
+
+	CNode* pNextNode = pCurrentNode->m_pNext;
+
+	pCurrentNode->m_pNext = pPrevNode;
+	pCurrentNode->m_pPrevious = pNextNode;
+
+	pPrevNode = pCurrentNode;
+	pCurrentNode = pNextNode;
+
+	childRecursiveReverse_NotInfinityLoop(pCurrentNode, pPrevNode, pHeadNode);
 }
 #pragma endregion
