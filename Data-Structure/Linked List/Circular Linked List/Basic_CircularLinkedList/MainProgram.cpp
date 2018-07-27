@@ -7,7 +7,7 @@ int main()
 {
 	CCircularLinkedList lkist;
 
-	int a[] = { 1, 5, 8, 7, 9, 6, 8 };
+	int a[] = {1, 2, 3, 4}; //{ 1, 5, 8, 7, 9, 6, 8 };
 	int size = sizeof(a) / sizeof(int);
 
 	// input for circular linked list. 
@@ -17,19 +17,8 @@ int main()
 		lkist.insertTail(pNode);
 	}
 
-	/*cout << "Before adding element, list have: \n";
 	lkist.printList();
-
-	CNode* pNewNode = lkist.makeNode(20);
-	lkist.insertBegin(pNewNode);*/
-
-	/*CNode* pNewNode = lkist.makeNode(10);
-	lkist.insertBefore(pNewNode, 9);
-	cout << "After adding element, list have: \n";*/
-	lkist.printList();
-
-	lkist.deleteNodeAt(8);
-	lkist.deleteNodeAt(8);
+	lkist.reverseList_Recursive();
 
 	lkist.printList();
 

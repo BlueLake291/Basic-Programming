@@ -34,6 +34,11 @@ public:
 	void deleteBegin();
 	void deleteTail();
 
+	// Reverse the circular linked list.
+	void reverseList_Iterative();
+	void reverseList_Recursive();
+	void reverseList_RecursiveUtil(const CNode* pFirstNode, CNode* pCurrentNode, CNode* pPrevNode, CNode*& pTailNode);
+
 	// Print this circular linked list. 
 	void printList();
 

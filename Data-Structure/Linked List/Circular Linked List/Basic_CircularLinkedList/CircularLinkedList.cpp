@@ -224,3 +224,73 @@ void CCircularLinkedList::printList()
 	cout << m_pLastNode->m_nData << "\n";
 }
 #pragma endregion
+
+
+#pragma region Reverse the circular linked list.
+void CCircularLinkedList::reverseList_Iterative()
+{
+	CNode* pFirstNode = m_pLastNode->m_pNext;
+	CNode* pCurrentNode = pFirstNode;
+	CNode* pNextNode = nullptr; 
+	CNode* pPrevNode = m_pLastNode;
+	
+	bool isOneLoop = false;
+
+	for (; pCurrentNode != pFirstNode || isOneLoop == false;)
+	{
+		// save the next elements. 
+		pNextNode = pCurrentNode->m_pNext;
+
+		// link the current node to the previous node. 
+		pCurrentNode->m_pNext = pPrevNode;
+
+		// restore the links to the other nodes. 
+		pPrevNode = pCurrentNode;
+		pCurrentNode = pNextNode;
+		
+		if (pCurrentNode == pFirstNode)
+		{
+			isOneLoop = true;
+		}
+	}
+
+	m_pLastNode = pNextNode;
+}
+
+
+void CCircularLinkedList::reverseList_Recursive()
+{
+	if (!m_pLastNode || !m_pLastNode->m_pNext)
+	{
+		return;
+	}
+
+	CNode* pTmpNode = m_pLastNode->m_pNext;
+	reverseList_RecursiveUtil(pTmpNode, pTmpNode, m_pLastNode, m_pLastNode);
+}
+
+
+void CCircularLinkedList::reverseList_RecursiveUtil(const CNode* pFirstNode, CNode* pCurrentNode, CNode* pPrevNode, CNode*& pTailNode)
+{
+	if (!pCurrentNode)
+	{
+		return;
+	}	
+
+	CNode* pNextNode = pCurrentNode->m_pNext;
+
+	pCurrentNode->m_pNext = pPrevNode;
+
+	pPrevNode = pCurrentNode;
+	pCurrentNode = pNextNode;
+	
+	if (pCurrentNode == pFirstNode)
+	{
+		m_pLastNode = pCurrentNode;	
+		return;
+	}
+
+	reverseList_RecursiveUtil(pFirstNode, pCurrentNode, pPrevNode, m_pLastNode);
+}
+
+#pragma endregion
